@@ -3,82 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Requisition and Jobcards</title>
 </head>
 <body>
+		<!-- Menu -->
+    <div class="menu">
+        <a href="jobcard.html">Home</a>
+        <a href="search.html">Search Jobcard</a>
+    </div>	
+
     <h1>Requisition and Jobcards</h1>
 
-    <form>
-        <label for="requisition-number">Requisition Number:</label>
-        <input type="text" id="requisition-number" name="requisition-number"><br><br>
+    <form id="requisition-form" method="post" action="save_jobcards.php">
+        <div class="form-group">
+            <div>
+                <label for="requisition-number">Requisition Number:</label>
+                <input type="text" id="requisition-number" name="requisition-number" required>
+            </div>
+            <div>
+                <label for="jobcard-number">Jobcard Number:</label>
+                <input type="text" id="jobcard-number" name="jobcard-number" required>
+            </div>
+        </div>
 
-        <label for="jobcard-number">Jobcard Number:</label>
-        <input type="text" id="jobcard-number" name="jobcard-number"><br><br>
+        <div class="form-group">
+            <div>
+                <label for="requested-by">Requested By:</label>
+                <input type="text" id="requested-by" name="requested-by" required>
+            </div>
+            <div>
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+        </div>
 
-        <label for="requested-by">Requested By:</label>
-        <input type="text" id="requested-by" name="requested-by"><br><br>
+        <div class="form-group">
+            <div>
+                <label for="time-start">Time Start:</label>
+                <input type="time" id="time-start" name="time-start" required>
+            </div>
+            <div>
+                <label for="time-stop">Time Stop:</label>
+                <input type="time" id="time-stop" name="time-stop" required>
+            </div>
+        </div>
 
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date"><br><br>
+        <div class="form-group">
+            <div>
+                <label for="department">Department:</label>
+                <select id="department" name="department" required>
+                    <option value="">Select a department</option>
+                    <option value="dept1">Department 1</option>
+                    <option value="dept2">Department 2</option>
+                    <option value="dept3">Department 3</option>
+                </select>
+            </div>
+            <div>
+                <label for="machine">Machine:</label>
+                <select id="machine" name="machine" required>
+                    <option value="">Select a machine</option>
+                </select>
+            </div>
+        </div>
 
-        <label for="time-start">Time Start:</label>
-        <input type="time" id="time-start" name="time-start"><br><br>
+        <div class="form-group">
+            <div>
+                <label for="fault-description">Fault Description:</label>
+                <textarea id="fault-description" name="fault-description" rows="4" required></textarea>
+            </div>
+        </div>
 
-        <label for="time-stop">Time Stop:</label>
-        <input type="time" id="time-stop" name="time-stop"><br><br>
+        <div class="form-group">
+            <div>
+                <label for="work-carried-out">Work Carried Out:</label>
+                <textarea id="work-carried-out" name="work-carried-out" rows="4" required></textarea>
+            </div>
+        </div>
 
-        <label for="fault-description">Fault Description:</label><br>
-        <textarea id="fault-description" name="fault-description" rows="4" cols="50"></textarea><br><br>
+        <div class="form-group">
+            <div>
+                <label for="type-of-fault">Type of Fault:</label>
+                <select id="type-of-fault" name="type-of-fault" required>
+                    <option value="">Select a type of fault</option>
+                    <option value="mechanical">Mechanical</option>
+                    <option value="electrical">Electrical</option>
+                    <option value="general">General</option>
+                </select>
+            </div>
+        </div>
 
-        <label for="department">Department:</label>
-        <select id="department" name="department">
-            <option value="dept1">Department 1</option>
-            <option value="dept2">Department 2</option>
-            <option value="dept3">Department 3</option>
-            <!-- Add more options as needed -->
-        </select><br><br>
+        <div class="form-group">
+            <div>
+                <label for="artisan">Artisan:</label>
+                <select id="artisan" name="artisan" required>
+                    <option value="">Select an artisan</option>
+                    <option value="artisan1">Artisan 1</option>
+                    <option value="artisan2">Artisan 2</option>
+                    <option value="artisan3">Artisan 3</option>
+                </select>
+            </div>
+            <div>
+                <label for="apprentice">Apprentice:</label>
+                <select id="apprentice" name="apprentice" required>
+                    <option value="">Select an apprentice</option>
+                    <option value="apprentice1">Apprentice 1</option>
+                    <option value="apprentice2">Apprentice 2</option>
+                    <option value="apprentice3">Apprentice 3</option>
+                </select>
+            </div>
+        </div>
 
-        <label for="machine">Machine:</label>
-        <select id="machine" name="machine">
-            <!-- Machine options filtered by department will go here -->
-        </select><br><br>
-
-        <label for="work-carried-out">Work Carried Out:</label><br>
-        <textarea id="work-carried-out" name="work-carried-out" maxlength="255" rows="4" cols="50"></textarea><br><br>
-
-        <label for="type-of-fault">Type of Fault:</label>
-        <select id="type-of-fault" name="type-of-fault">
-            <option value="electrical">Electrical</option>
-            <option value="mechanical">Mechanical</option>
-            <option value="software">Software</option>
-            <!-- Add more options as needed -->
-        </select><br><br>
-
-        <label for="artisan">Artisan:</label>
-        <select id="artisan" name="artisan">
-            <option value="artisan1">Artisan 1</option>
-            <option value="artisan2">Artisan 2</option>
-            <option value="artisan3">Artisan 3</option>
-            <!-- Add more options as needed -->
-        </select><br><br>
-
-        <label for="apprentice">Apprentice:</label>
-        <select id="apprentice" name="apprentice">
-            <option value="apprentice1">Apprentice 1</option>
-            <option value="apprentice2">Apprentice 2</option>
-            <option value="apprentice3">Apprentice 3</option>
-            <!-- Add more options as needed -->
-        </select><br><br>
-
-        <label for="total-time">Total Time Spent:</label>
-        <span id="total-time">0 hours 0 minutes</span><br><br>
+        <div class="form-group">
+            <div>
+                <p>Total Time: <span id="total-time">0 hours 0 minutes</span></p>
+            </div>
+        </div>
 
         <button type="submit">Submit</button>
     </form>
 
-    <script>
-        document.getElementById('time-stop').addEventListener('input', calculateTime);
+    <!-- Modal HTML -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Data has been saved successfully!</p>
+            <button id="proceed-button">Proceed</button>
+        </div>
+    </div>
 
+    <script>
         function calculateTime() {
             const startTime = document.getElementById('time-start').value;
             const stopTime = document.getElementById('time-stop').value;
@@ -94,6 +148,67 @@
                 document.getElementById('total-time').textContent = `${hours} hours ${minutes} minutes`;
             }
         }
+
+        document.getElementById('time-start').addEventListener('input', calculateTime);
+        document.getElementById('time-stop').addEventListener('input', calculateTime);
+
+        function updateMachineOptions() {
+            const department = document.getElementById('department').value;
+            const machineSelect = document.getElementById('machine');
+            machineSelect.innerHTML = '';
+
+            let machines = [];
+            switch (department) {
+                case 'dept1':
+                    machines = ['Machine 1', 'Machine 2'];
+                    break;
+                case 'dept2':
+                    machines = ['Machine 3', 'Machine 4'];
+                    break;
+                case 'dept3':
+                    machines = ['Machine 5', 'Machine 6'];
+                    break;
+                default:
+                    machines = [];
+            }
+
+            machines.forEach(machine => {
+                const option = document.createElement('option');
+                option.value = machine.toLowerCase().replace(' ', '-');
+                option.textContent = machine;
+                machineSelect.appendChild(option);
+            });
+        }
+
+        document.getElementById('department').addEventListener('change', updateMachineOptions);
+
+        // Modal functionality
+        function showModal() {
+            document.getElementById('success-modal').style.display = 'block';
+        }
+
+        function hideModal() {
+            document.getElementById('success-modal').style.display = 'none';
+        }
+
+        document.querySelector('.close').addEventListener('click', hideModal);
+        document.getElementById('proceed-button').addEventListener('click', function() {
+            hideModal();
+            document.getElementById('requisition-form').reset();
+        });
+
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('success-modal')) {
+                hideModal();
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('status') === 'success') {
+                showModal();
+            }
+        });
     </script>
 </body>
 </html>

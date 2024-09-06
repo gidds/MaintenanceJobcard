@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Search Jobcard</title>
+
+</head>
+<body>
+    <!-- Menu -->
+    <div class="menu">
+        <a href="jobcard.html">Home</a>
+        <a href="search.html">Search Jobcard</a>
+    </div>
+
+    <h1>Search Jobcard</h1>
+
+    <form id="search-form">
+        <label for="search-type">Search by:</label>
+        <select id="search-type" name="search-type">
+            <option value="requisition-number">Requisition Number</option>
+            <option value="jobcard-number">Jobcard Number</option>
+        </select>
+        <input type="text" id="search-input" name="search-input" required>
+        <button type="button" onclick="search()">Search</button>
+    </form>
+
+    <div id="search-results" class="results"></div>
+
+    <script>
+        function search() {
+            const type = document.getElementById('search-type').value;
+            const input = document.getElementById('search-input').value;
+
+            fetch('get_jobcard.php?type=' + type + '&input=' + encodeURIComponent(input))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('search-results').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
