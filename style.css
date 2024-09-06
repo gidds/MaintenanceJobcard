@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #333333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form Labels */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333333;
+}
+
+/* Form Inputs */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Textarea */
+textarea {
+    resize: vertical;
+}
+
+/* Buttons */
+button[type="submit"] {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Total Time Display */
+#total-time {
+    font-weight: bold;
+    color: #007bff;
+    display: inline-block;
+    margin-top: -10px;
+}
+
+/* Form Layout */
+form > label {
+    margin-bottom: 5px;
+}
+
+form > input,
+form > select,
+form > textarea,
+form > button {
+    margin-bottom: 15px;
+}
+
+form > input:last-of-type,
+form > select:last-of-type,
+form > textarea:last-of-type,
+form > button:last-of-type {
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    form {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+}

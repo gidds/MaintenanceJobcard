@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisition and Jobcards</title>
+</head>
+<body>
+    <h1>Requisition and Jobcards</h1>
+
+    <form>
+        <label for="requisition-number">Requisition Number:</label>
+        <input type="text" id="requisition-number" name="requisition-number"><br><br>
+
+        <label for="jobcard-number">Jobcard Number:</label>
+        <input type="text" id="jobcard-number" name="jobcard-number"><br><br>
+
+        <label for="requested-by">Requested By:</label>
+        <input type="text" id="requested-by" name="requested-by"><br><br>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date"><br><br>
+
+        <label for="time-start">Time Start:</label>
+        <input type="time" id="time-start" name="time-start"><br><br>
+
+        <label for="time-stop">Time Stop:</label>
+        <input type="time" id="time-stop" name="time-stop"><br><br>
+
+        <label for="fault-description">Fault Description:</label><br>
+        <textarea id="fault-description" name="fault-description" rows="4" cols="50"></textarea><br><br>
+
+        <label for="department">Department:</label>
+        <select id="department" name="department">
+            <option value="dept1">Department 1</option>
+            <option value="dept2">Department 2</option>
+            <option value="dept3">Department 3</option>
+            <!-- Add more options as needed -->
+        </select><br><br>
+
+        <label for="machine">Machine:</label>
+        <select id="machine" name="machine">
+            <!-- Machine options filtered by department will go here -->
+        </select><br><br>
+
+        <label for="work-carried-out">Work Carried Out:</label><br>
+        <textarea id="work-carried-out" name="work-carried-out" maxlength="255" rows="4" cols="50"></textarea><br><br>
+
+        <label for="type-of-fault">Type of Fault:</label>
+        <select id="type-of-fault" name="type-of-fault">
+            <option value="electrical">Electrical</option>
+            <option value="mechanical">Mechanical</option>
+            <option value="software">Software</option>
+            <!-- Add more options as needed -->
+        </select><br><br>
+
+        <label for="artisan">Artisan:</label>
+        <select id="artisan" name="artisan">
+            <option value="artisan1">Artisan 1</option>
+            <option value="artisan2">Artisan 2</option>
+            <option value="artisan3">Artisan 3</option>
+            <!-- Add more options as needed -->
+        </select><br><br>
+
+        <label for="apprentice">Apprentice:</label>
+        <select id="apprentice" name="apprentice">
+            <option value="apprentice1">Apprentice 1</option>
+            <option value="apprentice2">Apprentice 2</option>
+            <option value="apprentice3">Apprentice 3</option>
+            <!-- Add more options as needed -->
+        </select><br><br>
+
+        <label for="total-time">Total Time Spent:</label>
+        <span id="total-time">0 hours 0 minutes</span><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('time-stop').addEventListener('input', calculateTime);
+
+        function calculateTime() {
+            const startTime = document.getElementById('time-start').value;
+            const stopTime = document.getElementById('time-stop').value;
+
+            if (startTime && stopTime) {
+                const start = new Date(`1970-01-01T${startTime}:00`);
+                const stop = new Date(`1970-01-01T${stopTime}:00`);
+                const diffMs = stop - start;
+                const diffMins = Math.floor(diffMs / 60000);
+                const hours = Math.floor(diffMins / 60);
+                const minutes = diffMins % 60;
+
+                document.getElementById('total-time').textContent = `${hours} hours ${minutes} minutes`;
+            }
+        }
+    </script>
+</body>
+</html>
