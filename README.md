@@ -72,5 +72,5 @@ Contact
 For more information or to get in touch with the project maintainers:
 
 Your Name
-Email: your.email@example.com
-GitHub: your-username
+Email: gidds.12@icloud.com
+GitHub: gidds
