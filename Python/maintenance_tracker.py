@@ -1,23 +1,59 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from tkinter import filedialog, messagebox
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from tkcalendar import DateEntry
+import configparser 
+import os
 
 class MaintenanceTracker:
     def __init__(self, master):
         self.master = master
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        if config.has_section('settings') and config.has_option('settings', 'jobcards_file_path'):
+            self.jobcards_file_path = config['settings']['jobcards_file_path']
+        else:
+            self.jobcards_file_path = None
+            
         self.master.title("Maintenance Tracker")
         self.master.geometry("800x600")
-
+    
+    
         self.notebook = ttk.Notebook(self.master)
         self.notebook.pack(expand=True, fill="both")
-
+    
+    
         self.create_jobcard_frame()
         self.create_search_frame()
-
+    
         # Load existing jobcards
+        if self.jobcards_file_path is None or not os.path.exists(self.jobcards_file_path):
+            self.set_jobcards_file_path()
         self.load_jobcards()
+        
+    def set_jobcards_file_path(self):
+        """Sets the userjobcards.xml file path."""
+        file_path = filedialog.asksaveasfilename(title="Select or create jobcards file",
+                                                 defaultextension=".xml",
+                                                 filetypes=[("XML files", "*.xml")])
+        if file_path:
+            self.jobcards_file_path = file_path
+            config = configparser.ConfigParser()
+            config.read('config.ini')
+            if not config.has_section('settings'):
+                config.add_section('settings')
+            config.set('settings', 'jobcards_file_path', file_path)
+            with open('config.ini', 'w') as configfile:
+                config.write(configfile)
+            print(f"Jobcards file path set to: {file_path}")
+            if not os.path.exists(file_path):
+                with open(file_path, 'w') as f:
+                    f.write('<?xml version="1.0" encoding="UTF-8"?><jobcards></jobcards>')
+                print(f"Created new jobcards file at: {file_path}")
+        else:
+            print("No file selected.")
 
     def create_jobcard_frame(self):
         frame = ttk.Frame(self.notebook)
@@ -74,7 +110,7 @@ class MaintenanceTracker:
 
     def load_jobcards(self):
         try:
-            tree = ET.parse('../WebApp/jobcards.xml')
+            tree = ET.parse(self.jobcards_file_path)
             root = tree.getroot()
             self.jobcards = {
                 'requisition-number': set(),
@@ -103,7 +139,7 @@ class MaintenanceTracker:
 
     def save_jobcard(self):
         try:
-            tree = ET.parse('../WebApp/jobcards.xml')
+            tree = ET.parse(self.jobcards_file_path)
             root = tree.getroot()
 
             new_jobcard = ET.Element('jobcard')
@@ -113,14 +149,13 @@ class MaintenanceTracker:
                 elif field in ["Time Start", "Time Stop"]:
                     hour, minute = entry
                     value = f"{hour.get()}:{minute.get()}"
-                else:
                     value = entry.get()
                 ET.SubElement(new_jobcard, field.lower().replace(' ', '-')).text = value
 
             ET.SubElement(new_jobcard, 'timestamp').text = datetime.now().isoformat()
 
             root.append(new_jobcard)
-            tree.write('../WebApp/jobcards.xml')
+            tree.write(self.jobcards_file_path)
 
             messagebox.showinfo("Success", "Job card saved successfully!")
             for field, entry in self.entries.items():
@@ -144,7 +179,7 @@ class MaintenanceTracker:
         search_input = self.search_entry.get()
 
         try:
-            tree = ET.parse('../WebApp/jobcards.xml')
+            tree = ET.parse(self.jobcards_file_path)
             root = tree.getroot()
 
             result = "No matching jobcard found."
@@ -169,6 +204,7 @@ class MaintenanceTracker:
         except Exception as e:
             print(f"Error searching job card: {str(e)}")
             messagebox.showerror("Error", f"Error searching job card: {str(e)}")
+        
 
 if __name__ == "__main__":
     root = tk.Tk()
