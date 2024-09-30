@@ -149,6 +149,7 @@ class MaintenanceTracker:
                 elif field in ["Time Start", "Time Stop"]:
                     hour, minute = entry
                     value = f"{hour.get()}:{minute.get()}"
+                else:
                     value = entry.get()
                 ET.SubElement(new_jobcard, field.lower().replace(' ', '-')).text = value
 
